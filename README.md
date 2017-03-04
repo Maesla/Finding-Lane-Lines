@@ -24,7 +24,7 @@ The full report can be found in [writeup_report.md](writeup_report.md)
 #Result
 The result images can be found in the [result_images](result_images) folder.
 
-The result videos can be found in white.mp4, yellow.mp4 and extra.mp4
+The result videos can be found in [white](white.mp4), [yellow](yellow.mp4) and [extra](extra.mp4)
 
  <video width="320" height="240" controls>
   <source src="white.mp4" type="video/mp4">
