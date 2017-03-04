@@ -27,7 +27,7 @@ My pipeline consists of 7 steps:
 4. After applying Canny, I crop the image. I get a triangle. The lower corners are the image bottom corners. The upper corner is positioned approximately at 0.5 width and 0.6 height, with 0,0 in the upper corner.
 5. I apply a Hough algorithm to the cropped image. 
     - This is a modification of Hough. The first part is a common Hough. The second part is a modification of draw_lines. I will explain at the end, in **Drawing a single line** section.
-6. I apply the same cropping to the result, because the calculated lines are drawn in all the image.
+6. I apply the same cropping to the result, because the calculated lines are drawn in the whole image.
 7. Finally, in the last step, I blend the result with the original
 8. The full pipeline can be checked at **mywork.ipynb -> detect\_lane\_lines (image)**
 
