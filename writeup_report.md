@@ -29,6 +29,7 @@ My pipeline consists of 7 steps:
     - This is a modification of Hough. The first part is a common Hough. The second part is a modification of draw_lines. I will explain at the end, in **Drawing a single line** section.
 6. I apply the same cropping to the result, because the calculated lines are drawn in all the image.
 7. Finally, in the last step, I blend the result with the original
+8. The full pipeline can be checked at **mywork.ipynb -> detect\_lane\_lines (image)**
 
 ####Example pipeline
 ![alt text][pipeline1]
@@ -60,6 +61,7 @@ In order to draw a single line, I use these steps:
 7. For drawing the line, I need to calculate two points, so I calculate y1 for x1 = 0 and y2 for x2 = width.
 8. With the new P1 and P2, I draw the line with cv2.line
 9. To avoid the problem of having left and right variables in the function, I call the method twice with a sign argument. In this way, I can use the same method twice, one for the right lines and one for the left lines.
+10. The algorithm can be checked at **mywork.ipynb -> draw\_lines\_extrapolate(img, slopeSign, lines, color=[255, 0, 0], thickness=2)**
 
 
 ###2. Identify potential shortcomings with your current pipeline
@@ -73,7 +75,8 @@ I highlight three main shortcomings:
 
 ###3. Suggest possible improvements to your pipeline
 
-1. Using the Hough space for the single line algorithm. Using Cartesian coordinates bring known problems, like the problem pointed before in 2.2
-2. Using the arithmetic mean does not seem to be the better way to get the slope of a set of lines. Arithmetic mean is very sensible to extreme values.
-3. I think a better way to get the main line should be based in the Hough algorithm. Passing the line to polar coordinates, then to hough space, and then, finding the lines in a cell with similar ρ and θ, and using this as the main line, not with an arithmetic mean.
-4. I use twice the **finding a single line algorithm**. One for the left one and other for the right one. I think this is cleaner with the actual implementation, but slower. Probably a better way should be find the both lines in one pass. Even better, using the paradigm described in the previous point is even better, because left and right lines should group together and with one pass we could have them both.
+1. Using the Hough space for the single line algorithm. Using Cartesian coordinates bring known problems, like the problem pointed before in 2.2, with infinite slopes.
+2. Using the arithmetic mean does not seem to be the better way to get the slope of a line set. Arithmetic mean is very sensible to extreme values.
+3. I think a better way to get the main line should be based in the Hough algorithm. Transforming the lines returned by cv2.HoughLinesP to polar coordinates, then to Hough Space, and then, finding the lines in a cell with similar ρ and θ, and using this **(ρ,θ)** as the main line, without an arithmetic mean.
+4. I use twice the **finding a single line algorithm**. One for the left one and other for the right one. I think this is cleaner with the actual implementation, but slower. Probably a better way should be finding both lines in one pass. Even better, using the paradigm described in the previous point is even better, because left and right lines should be grouped together and with one pass we could have them both.
+5. Curved lanes. The algorithm is not working with curved lanes. To detect curved lane, I think  lane pixels should be detected and then we could use same kind of spline approximation.
